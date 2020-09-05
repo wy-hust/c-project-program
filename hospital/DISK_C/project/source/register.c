@@ -6,6 +6,8 @@
 #include<conio.h>
 #include<dos.h>
 #include <mouse.h> 
+#include "hzk.h"
+void register_success();
 void user_register();//用户注册函数 
 void register_username(char *s,int *p);
 void register_password(char *s,int *p);
@@ -168,25 +170,25 @@ void user_register()
 	cleardevice();
 	setbkcolor(WHITE);  
 	delay(50);
-	output_hanzi(130,120,"账号",1,CYAN);//150 200 
+	//output_hanzi(130,120,"账号",1,CYAN);//150 200 
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,100,530,160);//
 	setcolor(CYAN);
 	rectangle(199,99,531,161);
-	output_hanzi(130,220,"密码",1,CYAN);
+	//output_hanzi(130,220,"密码",1,CYAN);
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,200,530,260);
 	setcolor(CYAN);
 	rectangle(199,199,531,261);
-	output_hanzi(60,320,"再次输入密码",1,CYAN);
+	//output_hanzi(60,320,"再次输入密码",1,CYAN);
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,300,530,360);
 	setcolor(CYAN);
 	rectangle(199,299,531,361);
 	setfillstyle(1,LIGHTGRAY);
 	bar(0,0,70,50);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	output_hanzi(5,10,"返回",2,CYAN);
-	output_hanzi(5,420,"注册",2,CYAN); 
+	//output_hanzi(5,10,"返回",2,CYAN);
+	//output_hanzi(5,420,"注册",2,CYAN); 
 	setcolor(CYAN);//设置画笔颜色 
 	setlinestyle(SOLID_LINE,0,NORM_WIDTH);//设置直线格式 
 	line(0,460,80,460);
@@ -289,9 +291,20 @@ void user_register()
 		{
 			if(strcmp(password,repassword)==0) 
 			{
-				register_success();
+				//register_success();
+				;
+				
+				
+				
+				
+				
+				
+				
+				
 			}
 		}
 		
+	}
 }
+
 

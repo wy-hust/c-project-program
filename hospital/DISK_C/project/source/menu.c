@@ -7,6 +7,7 @@
 #include <dos.h>
 #include <mouse.h> 
 #include <menu.h>
+#include "hzk.h"
 void help()
 {
 	
@@ -15,12 +16,12 @@ void help()
 	cleardevice();//清空屏幕 
 	setbkcolor(WHITE);//设置背景色 
 	mouseinit();//初始化鼠标 
-	output_hanzi(250,10,"帮助",2,DARKGRAY);
+	//output_ha(250,10,"帮助",2,DARKGRAY);
 	setfillstyle(1,DARKGRAY);//设置填充颜色 
 	bar(0,0,70,50);
-	output_hanzi(5,10,"返回",2,CYAN);
-	output_hanzi(50,50,"初始登录密码为账号后六位",2,CYAN);
-	output_hanzi(50,100,"第一次登录后请进行密码更改",2,CYAN);
+	//output_ha(5,10,"返回",2,CYAN);
+	//output_ha(50,50,"初始登录密码为账号后六位",2,CYAN);
+	//output_ha(50,100,"第一次登录后请进行密码更改",2,CYAN);
 	while(1)
 	{
 		newmouse(&MouseX,&MouseY,&press);
@@ -140,20 +141,20 @@ void login()
 	cleardevice();
 	setbkcolor(WHITE);  
 	delay(50);
-	output_hanzi(130,220,"账号",1,CYAN);//150 200 
+	//output_ha(130,220,"账号",1,CYAN);//150 200 
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,200,530,260);//
 	setcolor(CYAN);
 	rectangle(199,199,531,261);
-	output_hanzi(130,320,"密码",1,CYAN);
+	//output_ha(130,320,"密码",1,CYAN);
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,300,530,360);
 	setcolor(CYAN);
 	rectangle(199,299,531,361);
 	setfillstyle(1,LIGHTGRAY);
 	bar(0,0,70,50);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	output_hanzi(5,10,"返回",2,CYAN);
-	output_hanzi(5,420,"登录",2,CYAN); 
+	//output_ha(5,10,"返回",2,CYAN);
+	//output_ha(5,420,"登录",2,CYAN); 
 	setcolor(CYAN);//设置画笔颜色 
 	setlinestyle(SOLID_LINE,0,NORM_WIDTH);//设置直线格式 
 	line(0,460,80,460);
@@ -259,16 +260,16 @@ void menu()
 	cleardevice();
 	setbkcolor(WHITE);  
 	delay(50);
-	output_hanzi(115,20,s,2,CYAN);
+	puthz(60,20,s,32,40,'K',CYAN);
 	setfillstyle(1,CYAN);
 	bar(145,250,215,300);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	output_hanzi(150,260,s1,2,DARKGRAY);
+	//output_ha(150,260,s1,2,DARKGRAY);
 	bar(395,250,465,300);//画框左为x-5，上为y-10，右为左+70，下为上+50                          
-	output_hanzi(400,260,s2,2,DARKGRAY);
+	//output_ha(400,260,s2,2,DARKGRAY);
 	bar(145,320,215,370);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	output_hanzi(150,330,s3,2,DARKGRAY);
+	//output_ha(150,330,s3,2,DARKGRAY);
 	bar(395,320,465,370);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	output_hanzi(400,330,s4,2,DARKGRAY);
+	//output_ha(400,330,s4,2,DARKGRAY);
 	putbmp(220,80,"c:\\project\\shizi.bmp");//贴图函数 
 	mouseinit();
 	while(1)
@@ -303,14 +304,14 @@ void menu()
 	getch();
 	
 }
-void output_hanzi(int x,int y,char *s,int times,int color)//在指定位置输出汉字 
+/*void output_hanzi(int x,int y,char *s,int times,int color)//在指定位置输出汉字 
 {
 	FILE *fp;
 	char buffer[32];
 	int m,n,i,j,k;
 	unsigned char qh,wh;
 	unsigned long offset;
-	if ((fp=fopen("c:\\hzk16","rb"))==NULL)
+	if ((fp=fopen("c:\\project\\hzk16F","rb"))==NULL)
 	{ 
 	printf("Can't open File,Wrong!");
 	getch();
@@ -335,5 +336,5 @@ void output_hanzi(int x,int y,char *s,int times,int color)//在指定位置输出汉字
 	x+=15*times;
 	}
 	fclose(fp);
-}
+}*/ 
 
