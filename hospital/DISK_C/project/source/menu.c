@@ -3,15 +3,10 @@
 #include <fcntl.h>
 #include <io.h>
 #include <stdlib.h>
-#include<conio.h>
-#include<dos.h>
+#include <conio.h>
+#include <dos.h>
 #include <mouse.h> 
-void output_hanzi(int x,int y,char *s,int times,int color);
-void menu();//菜单界面函数 
-void login();//登录界面函数
-void help();//帮助界面函数  
-void login_username(char *s,int *p);
-void userkey();
+#include <menu.h>
 void help()
 {
 	
@@ -39,11 +34,10 @@ void help()
 void userkey(char *s,int *p)
 {
 	int i=0;
-	int judge=0; 
 	int length;
 	char t,ss[2]={'\0'}; 
 	int x=201,y=300;
-	i=*p; 
+	i=*p;
 	newmouse(&MouseX,&MouseY,&press);
 	length=strlen(s);
 	if (kbhit())
@@ -134,7 +128,7 @@ void login_username(char *s,int *p)
 }
 void login()
 { 
-	auto int i1=0,i2=0;
+	int i1=0,i2=0;
 	int judge=0;
 	unsigned long time=4000;
 	int gd=VGA,gm=VGAHI; 
@@ -260,8 +254,6 @@ void menu()
 	char *s2="注册";
 	char *s3="帮助";
 	char *s4="退出";
-	char *s5="登录";
-	char *s6="登录";
 	int gd=VGA,gm=VGAHI; 
 	initgraph(&gd,&gm,"C:\\BORLANDC\\bgi");
 	cleardevice();
@@ -287,6 +279,12 @@ void menu()
 			delay(100);
 			closegraph();
 			login();
+		}
+		if(mouse_press(395,250,465,300)==1)//退出 
+		{
+			delay(100);
+			closegraph();
+			user_register();
 		}
 		if(mouse_press(145,320,215,370)==1)//帮助 
 		{
