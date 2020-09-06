@@ -139,6 +139,7 @@ void login()
 	int judge1=0,judge2=0;//用来判断是否画实线 
 	initgraph(&gd,&gm,"C:\\BORLANDC\\bgi");
 	cleardevice();
+	putbmp(597,0,"c:\\project\\close.bmp"); 
 	setbkcolor(WHITE);  
 	delay(50);
 	//output_ha(130,220,"账号",1,CYAN);//150 200 
@@ -241,6 +242,10 @@ void login()
 				outtextxy(100, 100, password);
 			//}
 		}
+		if(mouse_press(597,0,640,47)==1)
+		{
+			exit(0);
+		}
 		
 	}
 	i1=0;
@@ -271,6 +276,7 @@ void menu()
 	bar(395,320,465,370);//画框左为x-5，上为y-10，右为左+70，下为上+50 
 	//output_ha(400,330,s4,2,DARKGRAY);
 	putbmp(220,80,"c:\\project\\shizi.bmp");//贴图函数 
+	putbmp(597,0,"c:\\project\\close.bmp"); 
 	mouseinit();
 	while(1)
 	{

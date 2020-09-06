@@ -1,11 +1,3 @@
-/*
-    hzk.c
-
-	Partly adapted by pervious version
-    Initial version: 2020.7.13
-    Lastest update: 2020.7.22
-    Author: Mengfp
-*/
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
