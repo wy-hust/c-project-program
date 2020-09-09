@@ -7,4 +7,5 @@ void help();//°ïÖú½çÃæº¯Êı
 void login_username(char *s,int *p);
 void userkey();
 void user_register();
+void draw_page_close();
 #endif

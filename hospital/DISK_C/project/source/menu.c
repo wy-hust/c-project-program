@@ -1,13 +1,11 @@
-#include <graphics.h> 
-#include <stdio.h>
-#include <fcntl.h>
-#include <io.h>
-#include <stdlib.h>
-#include <conio.h>
-#include <dos.h>
-#include <mouse.h> 
-#include <menu.h>
-#include "hzk.h"
+#include<all.h> 
+void draw_page_close()
+{
+	setfillstyle(1,LIGHTGRAY);
+	bar(616,0,640,24);
+	putbmp(617,0,"c:\\project\\close.bmp");
+	
+}
 void help()
 {
 	
@@ -16,19 +14,22 @@ void help()
 	cleardevice();//清空屏幕 
 	setbkcolor(WHITE);//设置背景色 
 	mouseinit();//初始化鼠标 
-	//output_ha(250,10,"帮助",2,DARKGRAY);
+	puthz(250,10,"帮助",32,32,'K',CYAN);
 	setfillstyle(1,DARKGRAY);//设置填充颜色 
-	bar(0,0,70,50);
-	//output_ha(5,10,"返回",2,CYAN);
-	//output_ha(50,50,"初始登录密码为账号后六位",2,CYAN);
-	//output_ha(50,100,"第一次登录后请进行密码更改",2,CYAN);
+	bar(0,0,65,35);
+	draw_page_close();
+	puthz(0,0,"返回",32,32,'K',CYAN);
 	while(1)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		if(mouse_press(0,0,70,50)==1)//返回 
+		if(mouse_press(0,0,65,35)==1)//返回 
 		{
 			closegraph();
 			menu();
+		}
+		if(mouse_press(616,0,640,24)==1)//直接退出 
+		{
+			exit(0); 
 		}
 	}
 }
@@ -81,11 +82,12 @@ void userkey(char *s,int *p)
 }
 void login_username(char *s,int *p)
 { 
-	static int i=0;
+	int i=0;
 	int judge=0; 
 	int length;
 	char t,ss[2]={'\0'}; 
 	int x=201,y=200;
+	i=*p;
 	newmouse(&MouseX,&MouseY,&press);
 	length=strlen(s);
 	if (kbhit())
@@ -129,36 +131,53 @@ void login_username(char *s,int *p)
 }
 void login()
 { 
-	int i1=0,i2=0;
+	struct student_register_information stu[10];
+	int i;//用于计数 
+	int i1=0,i2=0;//用于光标的绘画 
 	int judge=0;
+	int namejudge=0;//用于记录是否存在该用户名 
 	unsigned long time=4000;
 	int gd=VGA,gm=VGAHI; 
 	char username[100]={0};
 	char password[100]={0};
 	int num[2]={0,0};
 	int judge1=0,judge2=0;//用来判断是否画实线 
+	FILE *fp;
+	if((fp=fopen("data\\zhuce.txt","rt+"))==NULL)
+	{
+		setfillstyle(1,RED);
+		bar(100,100,200,200);
+	}
 	initgraph(&gd,&gm,"C:\\BORLANDC\\bgi");
-	cleardevice();
-	putbmp(597,0,"c:\\project\\close.bmp"); 
+	cleardevice();//清空屏幕 
 	setbkcolor(WHITE);  
 	delay(50);
-	//output_ha(130,220,"账号",1,CYAN);//150 200 
+	for(i=0;i<10;i++)
+	{
+		fscanf(fp,"%s%s",stu[i].stu_username,stu[i].stu_password);
+	}
+	draw_page_close();
+	puthz(120,220,"账号",32,32,'K',CYAN);
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,200,530,260);//
 	setcolor(CYAN);
 	rectangle(199,199,531,261);
-	//output_ha(130,320,"密码",1,CYAN);
+	puthz(120,320,"密码",32,32,'K',CYAN);
 	setfillstyle(1,LIGHTGRAY);
 	bar(200,300,530,360);
 	setcolor(CYAN);
 	rectangle(199,299,531,361);
 	setfillstyle(1,LIGHTGRAY);
-	bar(0,0,70,50);//画框左为x-5，上为y-10，右为左+70，下为上+50 
+	bar(0,0,70,40);//画框左为x-5，上为y-10，右为左+70，下为上+50 
 	//output_ha(5,10,"返回",2,CYAN);
+	puthz(0,0,"返回",32,32,'K',CYAN);
 	//output_ha(5,420,"登录",2,CYAN); 
+	puthz(0,420,"登录",32,32,'K',CYAN);
 	setcolor(CYAN);//设置画笔颜色 
 	setlinestyle(SOLID_LINE,0,NORM_WIDTH);//设置直线格式 
-	line(0,460,80,460);
+	line(0,453,64,453);
+	i1=0;
+	i2=0;
 	mouseinit(); 
 	while(1)
 	{
@@ -192,7 +211,6 @@ void login()
 			setcolor(WHITE);
 			setlinestyle(SOLID_LINE,0,NORM_WIDTH);
 			line(201+15*i1,201,201+15*i1,259);
-			delay(50);
 			login_username(username,&i1);
 			judge1=1; 
 		}
@@ -232,24 +250,48 @@ void login()
 			delay(50); 
 		}
 		//登录
-		if(mouse_press(0,400,60,480)==1)
+		if(mouse_press(0,415,60,480)==1)
 		{
-			//if(strcmp(username,password)==0) 
-			//
-				setfillstyle(1,WHITE);
-				bar(100,0,200,150);
-				outtextxy(100, 0, username);
-				outtextxy(100, 100, password);
-			//}
+			for(i=0;i<10;i++)
+			{
+				if(strcmp(username,stu[i].stu_username)==0&&strcmp(password,stu[i].stu_password)==0)
+				{
+					setfillstyle(1,LIGHTBLUE);
+					bar(260,200,400,280);
+					puthz(270,230,"登录成功",24,30,'H',CYAN);
+					namejudge=1; 
+					//closegraph();
+					//userscreen();
+				}
+				if(strcmp(username,stu[i].stu_username)==0&&strcmp(password,stu[i].stu_password)!=0)
+				{
+					setfillstyle(1,LIGHTBLUE);
+					bar(260,200,400,280);
+					puthz(270,230,"密码错误",24,30,'H',CYAN);
+					namejudge=1;
+					delay(100);
+					login();
+				 }
+				if(strcmp(username,stu[i].stu_username)==0)
+				{
+					namejudge=1;
+				 } 
+			}
+			if(judge==0)
+			{
+					setfillstyle(1,LIGHTBLUE);
+					bar(260,200,440,280);
+					puthz(270,230,"用户不存在",24,30,'H',CYAN);
+					delay(100);
+					login();
+			}
 		}
-		if(mouse_press(597,0,640,47)==1)
+		if(mouse_press(615,0,640,24)==1)
 		{
 			exit(0);
 		}
 		
 	}
-	i1=0;
-	i2=0; 
 	
 }
 void menu()
@@ -267,39 +309,39 @@ void menu()
 	delay(50);
 	puthz(60,20,s,32,40,'K',CYAN);
 	setfillstyle(1,CYAN);
-	bar(145,250,215,300);//画框左为x-5，上为y-10，右为左+70，下为上+50 
+	bar(145,250,215,290);
 	//output_ha(150,260,s1,2,DARKGRAY);
-	bar(395,250,465,300);//画框左为x-5，上为y-10，右为左+70，下为上+50                          
-	//output_ha(400,260,s2,2,DARKGRAY);
-	bar(145,320,215,370);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	//output_ha(150,330,s3,2,DARKGRAY);
-	bar(395,320,465,370);//画框左为x-5，上为y-10，右为左+70，下为上+50 
-	//output_ha(400,330,s4,2,DARKGRAY);
+	puthz(145,250,s1,32,36,'K',BLUE);
+	bar(395,250,465,290);                        
+	puthz(395,250,s2,32,36,'K',BLUE);
+	bar(145,320,215,360);
+	puthz(145,320,s3,32,36,'K',BLUE);
+	bar(395,320,465,360);
+	puthz(395,320,s4,32,36,'K',BLUE);
 	putbmp(220,80,"c:\\project\\shizi.bmp");//贴图函数 
-	putbmp(597,0,"c:\\project\\close.bmp"); 
 	mouseinit();
 	while(1)
 	{
 		newmouse(&MouseX,&MouseY,&press);
-		if(mouse_press(145,250,215,300)==1)//登录 
+		if(mouse_press(145,250,215,290)==1)//登录 
 		{
 			delay(100);
 			closegraph();
 			login();
 		}
-		if(mouse_press(395,250,465,300)==1)//退出 
+		if(mouse_press(395,250,465,290)==1)//注册 
 		{
 			delay(100);
 			closegraph();
 			user_register();
 		}
-		if(mouse_press(145,320,215,370)==1)//帮助 
+		if(mouse_press(145,320,215,360)==1)//帮助 
 		{
 			delay(100);
 			closegraph();
 			help();
 		}
-		if(mouse_press(395,320,465,370)==1)//退出 
+		if(mouse_press(395,320,465,360)==1)//退出 
 		{
 			delay(100);
 			closegraph();
@@ -310,37 +352,4 @@ void menu()
 	getch();
 	
 }
-/*void output_hanzi(int x,int y,char *s,int times,int color)//在指定位置输出汉字 
-{
-	FILE *fp;
-	char buffer[32];
-	int m,n,i,j,k;
-	unsigned char qh,wh;
-	unsigned long offset;
-	if ((fp=fopen("c:\\project\\hzk16F","rb"))==NULL)
-	{ 
-	printf("Can't open File,Wrong!");
-	getch();
-	closegraph(); 
-	exit(0);
-	}
-	while(*s)
-	{ 
-	qh=*(s)-0xa0; 
-	wh=*(s+1)-0xa0;
-	offset=(94*(qh-1)+(wh-1))*32L; 
-	fseek(fp,offset,SEEK_SET);
-	fread(buffer,32,1,fp); 
-	for (i=0;i<16;i++)
-	for(n=0;n<times;n++)//times为放大倍数 
-	for(j=0;j<2;j++)
-	for(k=0;k<8;k++)
-	for(m=0;m<times;m++)
-	if (((buffer[i*2+j]>>(7-k))&0x1)!=NULL)
-	putpixel(x+8*j*times+k*times+m,y+i*times+n,color);
-	s+=2; 
-	x+=15*times;
-	}
-	fclose(fp);
-}*/ 
 
