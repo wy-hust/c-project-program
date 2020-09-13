@@ -146,7 +146,7 @@ void register_repassword(char *s,int *p)
 	*p=i;
 	return;
 }
-void user_register()
+int user_register()
 {
 	int i=0;
 	int judge_register=0;//ÅĞ¶ÏÊÇ·ñÖØ¸´×¢²á 
@@ -315,8 +315,10 @@ void user_register()
 					setfillstyle(1,LIGHTBLUE);
 					bar(260,200,400,280);
 					puthz(270,230,"×¢²á³É¹¦",24,30,'H',CYAN);
+					fclose(fp);
 					delay(1000);
-					menu();
+					//menu();
+					return 1;
 				}
 				if(judge_register==1)
 				{
@@ -324,7 +326,8 @@ void user_register()
 					bar(260,200,400,280);
 					puthz(270,230,"ÕËºÅÖØ¸´",24,30,'H',CYAN);
 					delay(1000);
-					user_register(); 
+					//user_register();
+					return 3; 
 				}
 				
 			}
@@ -334,7 +337,8 @@ void user_register()
 					bar(260,200,430,280);
 					puthz(270,230,"ÃÜÂë²»Ò»ÖÂ",24,30,'H',CYAN);
 					delay(100);
-					user_register();
+					//user_register();
+					return 3;
 			}
 		}
 		if(mouse_press(615,0,640,24)==1)
@@ -342,8 +346,5 @@ void user_register()
 			exit(0);
 		}
 		
-	}
-	fclose(fp); 
+	} 
 }
-
-

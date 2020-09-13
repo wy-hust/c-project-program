@@ -3,10 +3,10 @@ void draw_page_close()
 {
 	setfillstyle(1,LIGHTGRAY);
 	bar(616,0,640,24);
-	putbmp(617,0,"c:\\project\\close.bmp");
+	putbmp(617,0,"bmp\\close.bmp");
 	
 }
-void help()
+int help()
 {
 	
 	int gd=VGA,gm=VGAHI; 
@@ -25,7 +25,7 @@ void help()
 		if(mouse_press(0,0,65,35)==1)//返回 
 		{
 			closegraph();
-			menu();
+			return 1;
 		}
 		if(mouse_press(616,0,640,24)==1)//直接退出 
 		{
@@ -35,6 +35,7 @@ void help()
 }
 void userkey(char *s,int *p)
 {
+	
 	int i=0;
 	int length;
 	char t,ss[2]={'\0'}; 
@@ -42,6 +43,7 @@ void userkey(char *s,int *p)
 	i=*p;
 	newmouse(&MouseX,&MouseY,&press);
 	length=strlen(s);
+	clrmous(MouseX,MouseY);
 	if (kbhit())
         {	
         	t=getch();
@@ -80,7 +82,7 @@ void userkey(char *s,int *p)
 	}
 	*p=i;
 }
-void login_username(char *s,int *p)
+int login_username(char *s,int *p)
 { 
 	int i=0;
 	int judge=0; 
@@ -129,7 +131,67 @@ void login_username(char *s,int *p)
 	*p=i;
 	return;
 }
-void login()
+/*void input(int x1,int y1,int x2,int y2, char *s, int max_len, int fp, int fn,int backcolor)
+{
+	char value;
+	int length=strlen(s);
+	int width=16;  //字符宽度
+    int flag;
+	line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, BLACK);//绘制光标
+	while(1)
+	{
+        int flag;
+        newmouse(&MouseX, &MouseY, &press);
+        if(mouse_press_out(x1,y1,x2,y2)==1)
+        {
+            s[length]='\0';
+			line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, backcolor);	//覆盖光标
+			break;
+        }
+        if(kbhit())
+        {
+            value=getch();
+            if(value=='\n'||value=='\r') //判断到按下回车
+            {
+                s[length]='\0';
+			    line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, backcolor);	//覆盖光标
+			    break;
+            }
+		    else if(value=='\b')
+		    {
+			    clrmous(MouseX, MouseY);
+                newmouse(&MouseX, &MouseY, &press);
+                if(length==0) continue;
+                line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, BLACK);	
+			    bar(x1+5+width*(length-1), y1+3, x2, y2-3, backcolor);	//覆盖光标和最后一个字符
+			    s[--length]='\0';
+			    if(length+1<max_len) s[length+1]='\0';
+			    line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, BLACK);  //重新绘制光标
+		    }
+            //尝试添加可通过方向键动态修改功能，待完善
+            /*else if(value==224)
+            {
+                value1=getch();
+                if(value1==72||value1==80) continue;
+                else if(value1==75) 
+                else if(value1==77) 
+            }
+		    else if(length<max_len)
+		    {
+			    if(fn&&(value>'9'||value<'0')) continue; //判断是否要求全数字
+                clrmous(MouseX, MouseY);
+                newmouse(&MouseX, &MouseY, &press);
+                line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, backcolor);	//覆盖光标
+			    //判断是否为密码，如果是，则需要保密
+                if(!fp) putEngletter(x1-4+width*length, y1+8, (int)(value), 2,2,BLACK);  //显示字符
+			    else fill_circle(x1+16+width*length, (y1+y2)/2, 4,BLACK); //显示小圆点
+			    s[length++]=value;
+			    line(x1+5+width*length, y1+3, x1+5+width*length, y2-3, BLACK);	//重新绘制光标
+		    }
+        }
+	}
+}*/
+int login()
 { 
 	struct student_register_information stu[10];
 	int i;//用于计数 
@@ -168,7 +230,7 @@ void login()
 	setcolor(CYAN);
 	rectangle(199,299,531,361);
 	setfillstyle(1,LIGHTGRAY);
-	bar(0,0,70,40);//画框左为x-5，上为y-10，右为左+70，下为上+50 
+	bar(0,0,70,40);
 	//output_ha(5,10,"返回",2,CYAN);
 	puthz(0,0,"返回",32,32,'K',CYAN);
 	//output_ha(5,420,"登录",2,CYAN); 
@@ -181,6 +243,7 @@ void login()
 	mouseinit(); 
 	while(1)
 	{
+		
 		if(judge==0&&time<8000)//代替delay计数，以实现光标闪烁时鼠标自由移动
 		{
 			time++;
@@ -198,12 +261,16 @@ void login()
 			judge=0;
 		}
 		newmouse(&MouseX,&MouseY,&press);
-		
+		/*if(bioskey(1))
+		{
+			getch();
+		}*/
 		
 		if(mouse_press(0,0,70,50)==1)//返回 
 		{
 			closegraph();
-			menu();
+			//menu();
+			return 1;
 		}
 		//账号输入 
 		if(mouse_press(200,200,530,260)==1)
@@ -260,8 +327,10 @@ void login()
 					bar(260,200,400,280);
 					puthz(270,230,"登录成功",24,30,'H',CYAN);
 					namejudge=1; 
+					delay(200);
 					//closegraph();
 					//userscreen();
+					return 5;
 				}
 				if(strcmp(username,stu[i].stu_username)==0&&strcmp(password,stu[i].stu_password)!=0)
 				{
@@ -270,7 +339,8 @@ void login()
 					puthz(270,230,"密码错误",24,30,'H',CYAN);
 					namejudge=1;
 					delay(100);
-					login();
+					//login();
+					return 2;
 				 }
 				if(strcmp(username,stu[i].stu_username)==0)
 				{
@@ -283,7 +353,8 @@ void login()
 					bar(260,200,440,280);
 					puthz(270,230,"用户不存在",24,30,'H',CYAN);
 					delay(100);
-					login();
+					//login();
+					return 2;
 			}
 		}
 		if(mouse_press(615,0,640,24)==1)
@@ -294,7 +365,7 @@ void login()
 	}
 	
 }
-void menu()
+int menu()
 {
 	int x,y;
 	char *s="华中科技大学校医院网上就诊";
@@ -318,7 +389,7 @@ void menu()
 	puthz(145,320,s3,32,36,'K',BLUE);
 	bar(395,320,465,360);
 	puthz(395,320,s4,32,36,'K',BLUE);
-	putbmp(220,80,"c:\\project\\shizi.bmp");//贴图函数 
+	putbmp(220,80,"bmp\\shizi.bmp");//贴图函数 
 	mouseinit();
 	while(1)
 	{
@@ -327,19 +398,22 @@ void menu()
 		{
 			delay(100);
 			closegraph();
-			login();
+			//login();
+			return 2;
 		}
 		if(mouse_press(395,250,465,290)==1)//注册 
 		{
 			delay(100);
 			closegraph();
-			user_register();
+			//user_register();
+			return 3;
 		}
 		if(mouse_press(145,320,215,360)==1)//帮助 
 		{
 			delay(100);
 			closegraph();
-			help();
+			//help();
+			return 4;
 		}
 		if(mouse_press(395,320,465,360)==1)//退出 
 		{
@@ -349,7 +423,6 @@ void menu()
 		}
 		 
 	}
-	getch();
 	
 }
 

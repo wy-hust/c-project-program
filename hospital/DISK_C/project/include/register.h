@@ -8,5 +8,5 @@ struct student_register_information
 void register_username(char *s,int *p);
 void register_password(char *s,int *p);
 void register_repassword(char *s,int *p);
-void user_register();
+int user_register();
 #endif
