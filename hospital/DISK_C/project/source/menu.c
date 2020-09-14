@@ -94,6 +94,7 @@ int login_username(char *s,int *p)
 	length=strlen(s);
 	if (kbhit())
         {	
+			clrmous(MouseX,MouseY);
         	t=getch();
 			if (t != '\n'
             && t != '\r'
@@ -128,6 +129,7 @@ int login_username(char *s,int *p)
                 }
             }	
 	}
+	
 	*p=i;
 	return;
 }

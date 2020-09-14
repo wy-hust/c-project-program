@@ -26,6 +26,9 @@ int main()
             case 5:
             page = userscreen();
             break;
+
+            case 6:
+            page = yuyueguhao();
         }
     }
     

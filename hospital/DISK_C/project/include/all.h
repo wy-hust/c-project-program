@@ -12,4 +12,5 @@
 #include<register.h>
 #include<userscreen.h>
 #include<menu.h>
+#include<guahao.h>
 #endif

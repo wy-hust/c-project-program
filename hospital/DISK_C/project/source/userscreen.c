@@ -60,18 +60,94 @@ int userscreen()
 		{
 			return 1;
 		}
-		if (mouse_press(180,40,330,200)==2)
+
+
+		if (flag1==0&&mouse_press(180,40,330,200)==2)
 		{
 			flag1=1;
+			setfillstyle(1,DARKGRAY);
+			clrmous(MouseX,MouseY);
+			bar(180,40,330,200);
+			puthz(200,60,"‘§‘º",48,60,'H',CYAN);
+			puthz(200,130,"π“∫≈",48,60,'H',CYAN);
 		}
-		else if (mouse_press(180,40,330,200)!=2)
+		else if (flag1==1&&mouse_press(180,40,330,200)!=2)
 		{
 			flag1=0;
+			setfillstyle(1,LIGHTGRAY);
+			clrmous(MouseX,MouseY);
+			bar(180,40,330,200);
+			puthz(200,60,"‘§‘º",48,60,'H',CYAN);
+			puthz(200,130,"π“∫≈",48,60,'H',CYAN);
 		}
-		if (flag1==0)
+
+
+		if (flag2==0&&mouse_press(400,40,550,200)==2)
 		{
-			/* code */
+			flag2=1;
+			setfillstyle(1,DARKGRAY);
+			clrmous(MouseX,MouseY);
+			bar(400,40,550,200);
+			puthz(420,60,"Œ ’Ô",48,60,'H',CYAN);
+			puthz(420,130,"◊…—Ø",48,60,'H',CYAN);
 		}
+		else if (flag2==1&&mouse_press(400,40,550,200)!=2)
+		{
+			flag2=0;
+			setfillstyle(1,LIGHTGRAY);
+			clrmous(MouseX,MouseY);
+			bar(400,40,550,200);
+			puthz(420,60,"Œ ’Ô",48,60,'H',CYAN);
+			puthz(420,130,"◊…—Ø",48,60,'H',CYAN);
+		}
+
+
+		if (flag3==0&&mouse_press(180,260,330,440)==2)
+		{
+			flag3=1;
+			setfillstyle(1,DARKGRAY);
+			clrmous(MouseX,MouseY);
+			bar(180,260,330,440);
+			puthz(200,280,"Ω…∑—",48,60,'H',CYAN);
+			puthz(200,350,"÷ß∏∂",48,60,'H',CYAN);
+		}
+		else if (flag3==1&&mouse_press(180,260,330,440)!=2)
+		{
+			flag3=0;
+			setfillstyle(1,LIGHTGRAY);
+			clrmous(MouseX,MouseY);
+			bar(180,260,330,440);
+			puthz(200,280,"Ω…∑—",48,60,'H',CYAN);
+			puthz(200,350,"÷ß∏∂",48,60,'H',CYAN);
+		}
+
+
+		if (flag4==0&&mouse_press(400,260,550,440)==2)
+		{
+			flag4=1;
+			setfillstyle(1,DARKGRAY);
+			clrmous(MouseX,MouseY);
+			bar(400,260,550,440);
+			puthz(420,280,"“©∆∑",48,60,'H',CYAN);
+			puthz(420,350,"≈‰ÀÕ",48,60,'H',CYAN);
+		}
+		else if (flag4==1&&mouse_press(400,260,550,440)!=2)
+		{
+			flag4=0;
+			setfillstyle(1,LIGHTGRAY);
+			clrmous(MouseX,MouseY);
+			bar(400,260,550,440);
+			puthz(420,280,"“©∆∑",48,60,'H',CYAN);
+			puthz(420,350,"≈‰ÀÕ",48,60,'H',CYAN);
+		}
+		
+		//‘§‘ºπ“∫≈
+		if (mouse_press(180,40,330,200)==1)
+		{
+			closegraph();
+			return 6;
+		}
+		
 		
 		
 		
